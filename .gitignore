@@ -61,4 +61,7 @@ typings/
 .next
 
 # .idea
-.idea
+.idea/
+
+# .iml
+*.iml
