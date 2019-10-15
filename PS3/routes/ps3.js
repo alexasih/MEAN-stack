@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const pug = require('pug');
-const compiledFunction = pug.compileFile('public/template.pug');
+const compiledFunction = pug.compileFile('views/ps3.pug');
 
 router.route('/')
     .get(function (req, res, next) {
