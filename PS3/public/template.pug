@@ -1,0 +1,25 @@
+doctype html
+html(lang='en')
+    head
+        title PS3
+    body
+        h1 CAS CS400 PS3
+        div.container
+            p #{name}
+            p #{lengthOfName}
+            form(method='POST' action='http://localhost:3000/ps3')
+                label Text goes here:
+                input(type='text', name='stringy')
+                input(type='submit')
+
+
+//   
+//    <body>
+//        <h1>Demo POST form</h1>
+//        <form method="post" action="http://localhost:3000">
+//            <label>Enter a val for Bar:</label>
+//            <input type="text" name="bar"></input>
+//            <input type="submit">Submit</input>
+//        </form>
+//    </body>
+//</html>
