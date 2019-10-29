@@ -15,14 +15,13 @@ router.route('/')
                 console.log('error:', err);
             } else {
                 let currentWeather = JSON.parse(body);
-                if(currentWeather.main == undefined && currentWeather.weather==undefined){
+                if(currentWeather.main == undefined || currentWeather.weather==undefined){
                     res.send(compiledFunction({
                         weather: 'Error, please try again'
                     }));
                 } else {
                     res.send(compiledFunction({
-                        weather: `Today's weather is ${currentWeather.weather[0].description}. Currently, the temperature is at ${currentWeather.main.temp} degrees in ${currentWeather.name}!`,
-                        body: body
+                        weather: `Today's weather is ${currentWeather.weather[0].description}. Currently, the temperature is at ${currentWeather.main.temp} degrees in ${currentWeather.name}!`
                     }));
                 }
             }
