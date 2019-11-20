@@ -66,3 +66,6 @@ typings/
 
 # node_modules
 node_modules/
+
+# config file
+config.js
