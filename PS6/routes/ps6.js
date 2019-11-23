@@ -8,7 +8,7 @@ const db = require('../mongo/mongo');
 // OLD FUNCTION
 router.route('/')
     .get(function (req, res, next) {
-        const apiKey = '3637536f8628dadf8736af7c6a1dea22';
+        const apiKey = 'ALEXAS_API_KEY';
         const city = 'boston';
         const url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
         let mongo = db.getDB();
