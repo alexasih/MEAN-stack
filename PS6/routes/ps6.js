@@ -41,7 +41,7 @@ router.route('/')
                                 city: `${currentWeather.name}`
                             });
 
-                            mongo.collection('weatherdata').findOne({}, (err, result) => {
+                            mongo.collection('weatherdata').findOne({'temperature': `${currentWeather.main.temp}`}, (err, result) => {
                                 if (err) throw err;
                                 console.log(result);
                                 res.send(compiledFunction({
