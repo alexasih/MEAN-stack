@@ -1,3 +1,5 @@
+require('dotenv').config();
+console.log(console.log(require('dotenv').config()));
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -8,7 +10,6 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const ps6Router = require('./routes/ps6');
 const app = express();
-// app.listen(config.port);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
