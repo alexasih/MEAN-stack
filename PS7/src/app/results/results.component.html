@@ -1,0 +1,10 @@
+<h2>Results!</h2>
+
+<div *ngIf="results; else elseBlock">
+    <ul>
+      <li *ngFor="let result of results">
+        <label (click)="displayResults(result)">Today's weather is {{result.description}}. Currently, the temperature is at {{result.temperature}} degrees in {{result.city}}!</label>
+      </li>
+    </ul>
+</div>
+<ng-template #elseBlock>No data to display!</ng-template>

@@ -5,7 +5,6 @@ const compiledFunction = pug.compileFile('views/ps6.pug');
 const request = require('request');
 const db = require('../mongo/mongo');
 
-// OLD FUNCTION
 router.route('/')
     .get(function (req, res, next) {
         const apiKey = process.env.MY_WEATHER_API_KEY;
