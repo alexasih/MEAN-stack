@@ -21,6 +21,7 @@ export class FormComponent extends AppComponent {
 
   onSubmit() {
     console.log(`Sending ${this.contactFormGroup.value.city}`);
+    return Array.of(this.contactFormGroup.value.city);
   }
 
 }

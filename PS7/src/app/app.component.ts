@@ -10,14 +10,14 @@ import { RESULT } from './models/resultModel';
 export class AppComponent {
   title = 'PS7 Weather App';
   private selectedResult: RESULT = null;
-  results: RESULT[] = [];
+  results: RESULT[][] = [];
   test = 'foo';
 
   getResults(): void {
     this.apiService.getWeatherResults()
       .subscribe(results => {
-        this.results = results;
-        console.log(`Results: ${this.results}`)
+        this.results = Array.of(results);
+        console.log(`Results: ${Array.of(this.results)}`)
       });
   }
 

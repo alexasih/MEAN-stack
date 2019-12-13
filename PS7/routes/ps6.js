@@ -1,7 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const pug = require('pug');
-const compiledFunction = pug.compileFile('views/ps6.pug');
 const request = require('request');
 const db = require('../mongo/mongo');
 
@@ -18,19 +16,20 @@ router.route('/')
             } else {
                 let currentWeather = JSON.parse(body);
                 if (currentWeather.main == undefined || currentWeather.weather == undefined) {
-                    res.send(compiledFunction({
+                    res.send(({
                         weather: 'Error, please try again'
                     }));
                 } else {
-                    console.log(mongo.collection('weatherdata').find({'temperature': '275.99'}));
                     mongo.collection('weatherdata').find({'temperature': `${currentWeather.main.temp}`}).count((err, countValue) => {
                         if (countValue > 0) {
                             mongo.collection('weatherdata').findOne({'temperature': `${currentWeather.main.temp}`}, (err, result) => {
                                 if (err) throw err;
                                 console.log(result);
-                                res.send(compiledFunction({
-                                    inDB: `Temperature is already in DB! fetching data....`,
-                                    weather: `Today's weather is ${result.description}. Currently, the temperature is at ${result.temperature} degrees in ${result.city}!`
+                                console.log("Already in DB");
+                                res.send(({
+                                  description: `${result.description}`,
+                                  temperature: `${result.temperature}`,
+                                  city: `${result.city}`
                                 }));
                             });
                         } else {
@@ -42,10 +41,11 @@ router.route('/')
 
                             mongo.collection('weatherdata').findOne({'temperature': `${currentWeather.main.temp}`}, (err, result) => {
                                 if (err) throw err;
-                                console.log(result);
-                                res.send(compiledFunction({
-                                    inDB: `Temperature not yet in DB! Adding to mongoDB....`,
-                                    weather: `Today's weather is ${result.description}. Currently, the temperature is at ${result.temperature} degrees in ${result.city}!`
+                              console.log("Not in DB yet");
+                                res.send(({
+                                    description: `${result.description}`,
+                                    temperature: `${result.temperature}`,
+                                    city: `${result.city}`
                                 }));
                             });
                         }
