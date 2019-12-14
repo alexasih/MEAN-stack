@@ -5,9 +5,15 @@ const db = require('../mongo/mongo');
 
 router.route('/')
     .get(function (req, res, next) {
+        // const apiKey = process.env.MY_WEATHER_API_KEY;
+        // const city = 'boston';
+        // const url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+        // let mongo = db.getDB();
+        console.log(req);
         const apiKey = process.env.MY_WEATHER_API_KEY;
-        const city = 'boston';
-        const url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+        const urlPart1 = 'http://api.openweathermap.org/data/2.5/weather?q='
+        const urlPart2 = '&appid=';
+        const newUrl = urlPart1 + req.body.city + urlPart2 + apiKey;
         let mongo = db.getDB();
 
         request(url, function (err, response, body) {
@@ -54,6 +60,48 @@ router.route('/')
             }
         });
     });
+
+router.route('/db')
+  .post(function(req, res, next) {
+    const apiKey = process.env.MY_WEATHER_API_KEY;
+    const urlPart1 = 'http://api.openweathermap.org/data/2.5/weather?q='
+    const urlPart2 = '&appid=';
+    const newUrl = urlPart1 + req.body.city + urlPart2 + apiKey;
+    let mongo = db.getDB();
+
+    request(newUrl, function (err, response, body) {
+      if (err) {
+        console.log('error:', err);
+      } else {
+        let currentWeather = JSON.parse(body);
+        if (currentWeather.main == undefined || currentWeather.weather == undefined) {
+          res.send(({
+            weather: 'Error, please try again'
+          }));
+        } else {
+
+          mongo.collection('weatherdata').insertOne(({
+            description: `${currentWeather.weather[0].description}`,
+            temperature: `${currentWeather.main.temp}`,
+            city: `${req.body.city}`
+          }))
+
+          mongo.collection('weatherdata').findOne({'city': `${req.body.city}`}, (err, result) => {
+            if (err) throw err;
+            res.send({
+              description: `${result.description}`,
+              temperature: `${result.temperature}`,
+              city: `${result.city}`
+            })
+          })
+        }
+      }
+    })
+  });
+
+
+
+
 
 db.connect((err, client) => {
     if (err) {

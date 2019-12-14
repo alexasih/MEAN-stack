@@ -11,13 +11,11 @@ export class AppComponent {
   title = 'PS7 Weather App';
   private selectedResult: RESULT = null;
   results: RESULT[][] = [];
-  test = 'foo';
 
   getResults(): void {
     this.apiService.getWeatherResults()
       .subscribe(results => {
         this.results = Array.of(results);
-        console.log(`Results: ${Array.of(this.results)}`)
       });
   }
 
